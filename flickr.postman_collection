@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "9f644ef4-b351-4d82-b5c1-4910adf5da51",
+		"name": "flickr",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Testing_flickr",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Status code is 200',function() {pm.response.to.have.status(200);});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.flickr.com/services/rest/?method=flickr.photos.getPopular&api_key=00b132eaffa09b62a9ff098a3b86047d&user_id=193283850%40N03&format=json&nojsoncallback=1",
+					"protocol": "https",
+					"host": [
+						"www",
+						"flickr",
+						"com"
+					],
+					"path": [
+						"services",
+						"rest",
+						""
+					],
+					"query": [
+						{
+							"key": "method",
+							"value": "flickr.photos.getPopular"
+						},
+						{
+							"key": "api_key",
+							"value": "00b132eaffa09b62a9ff098a3b86047d"
+						},
+						{
+							"key": "user_id",
+							"value": "193283850%40N03"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "nojsoncallback",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1. Request token",
+			"request": {
+				"auth": {
+					"type": "oauth1",
+					"oauth1": [
+						{
+							"key": "callback",
+							"value": "http://example.com",
+							"type": "string"
+						},
+						{
+							"key": "addParamsToHeader",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "version",
+							"value": "1.0",
+							"type": "string"
+						},
+						{
+							"key": "consumerSecret",
+							"value": "{{consumerSecret}}",
+							"type": "string"
+						},
+						{
+							"key": "consumerKey",
+							"value": "{{consumerKey}}",
+							"type": "string"
+						},
+						{
+							"key": "signatureMethod",
+							"value": "HMAC-SHA1",
+							"type": "string"
+						},
+						{
+							"key": "addEmptyParamsToSign",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.flickr.com/services/oauth/request_token?oauth_callback=http://example.com",
+					"protocol": "https",
+					"host": [
+						"www",
+						"flickr",
+						"com"
+					],
+					"path": [
+						"services",
+						"oauth",
+						"request_token"
+					],
+					"query": [
+						{
+							"key": "oauth_callback",
+							"value": "http://example.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Allow access",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.flickr.com/services/oauth/authorize?oauth_token=72157719454869872-aba50757408dd74a",
+					"protocol": "https",
+					"host": [
+						"www",
+						"flickr",
+						"com"
+					],
+					"path": [
+						"services",
+						"oauth",
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "oauth_token",
+							"value": "72157719454869872-aba50757408dd74a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Get access token",
+			"request": {
+				"auth": {
+					"type": "oauth1",
+					"oauth1": [
+						{
+							"key": "callback",
+							"value": "http://example.com",
+							"type": "string"
+						},
+						{
+							"key": "verifier",
+							"value": "37b7a814b5d719c6",
+							"type": "string"
+						},
+						{
+							"key": "tokenSecret",
+							"value": "7e4a86cd26c13a26",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "72157719454869872-aba50757408dd74a",
+							"type": "string"
+						},
+						{
+							"key": "addParamsToHeader",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "version",
+							"value": "1.0",
+							"type": "string"
+						},
+						{
+							"key": "consumerSecret",
+							"value": "{{consumerSecret}}",
+							"type": "string"
+						},
+						{
+							"key": "consumerKey",
+							"value": "{{consumerKey}}",
+							"type": "string"
+						},
+						{
+							"key": "signatureMethod",
+							"value": "HMAC-SHA1",
+							"type": "string"
+						},
+						{
+							"key": "addEmptyParamsToSign",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.flickr.com/services/oauth/access_token?oauth_verifier=37b7a814b5d719c6",
+					"protocol": "https",
+					"host": [
+						"www",
+						"flickr",
+						"com"
+					],
+					"path": [
+						"services",
+						"oauth",
+						"access_token"
+					],
+					"query": [
+						{
+							"key": "oauth_verifier",
+							"value": "37b7a814b5d719c6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "flickr.blogs.postPhoto.html",
+			"request": {
+				"auth": {
+					"type": "oauth1",
+					"oauth1": [
+						{
+							"key": "tokenSecret",
+							"value": "58146c001c6584f4",
+							"type": "string"
+						},
+						{
+							"key": "token",
+							"value": "72157719454990752-04191b79a40cd796",
+							"type": "string"
+						},
+						{
+							"key": "callback",
+							"value": "http://example.com",
+							"type": "string"
+						},
+						{
+							"key": "verifier",
+							"value": "37b7a814b5d719c6",
+							"type": "string"
+						},
+						{
+							"key": "addParamsToHeader",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "version",
+							"value": "1.0",
+							"type": "string"
+						},
+						{
+							"key": "consumerSecret",
+							"value": "{{consumerSecret}}",
+							"type": "string"
+						},
+						{
+							"key": "consumerKey",
+							"value": "{{consumerKey}}",
+							"type": "string"
+						},
+						{
+							"key": "signatureMethod",
+							"value": "HMAC-SHA1",
+							"type": "string"
+						},
+						{
+							"key": "addEmptyParamsToSign",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://www.flickr.com/services/rest/?method=flickr.blogs.postPhoto.html",
+					"protocol": "https",
+					"host": [
+						"www",
+						"flickr",
+						"com"
+					],
+					"path": [
+						"services",
+						"rest",
+						""
+					],
+					"query": [
+						{
+							"key": "method",
+							"value": "flickr.blogs.postPhoto.html"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
